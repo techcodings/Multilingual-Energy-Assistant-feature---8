@@ -1,0 +1,1236 @@
+/* ==========================
+   Root Theme Tokens
+   (Merged: Yellow/Greenish "Neon Circuit" Theme)
+   ========================== */
+:root {
+  /* --- Color Palette (From Reference) --- */
+  --bg-main: #0a0e0a; /* Darkest Green-Black */
+  --bg-main-soft: #141a14; /* Dark Green-Gray */
+  --bg-panel: #1f2a1f; /* Lighter Green-Gray */
+  --bg-panel-soft: rgba(20, 26, 20, 0.96); /* Dark Green-Gray Panel */
+  --bg-sidebar: #0a0e0a;
+
+  --grid-line: rgba(190, 242, 45, 0.08); /* Neon grid line */
+
+  --text-main: #f0ffe0; /* Pale Yellow-Green */
+  --text-soft: #d4f7a6; /* Light Lime */
+  --text-dim: #8fb569; /* Muted Olive */
+
+  --accent-yellow: #f4ff4e; /* Electric Yellow */
+  --accent-green: #bef22d; /* Electric Lime */
+  --accent-emerald: #34d399; /* Bright Emerald */
+
+  --accent-gradient: linear-gradient(
+    135deg,
+    var(--accent-yellow),
+    var(--accent-green),
+    var(--accent-emerald)
+  );
+
+  --danger: #ff6b6b;
+
+  /* --- Borders (From Reference) --- */
+  --border-subtle: #2d3d2d;
+  --border-strong: #3d5a3d;
+
+  /* --- Sizing (From Original) --- */
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* --- Shadows (From Reference) --- */
+  --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.85);
+  --shadow-neon: 0 4px 20px rgba(244, 255, 78, 0.3),
+    0 0 30px rgba(190, 242, 45, 0.2);
+  --shadow-green: 0 0 10px rgba(244, 255, 78, 0.2),
+    0 0 20px rgba(190, 242, 45, 0.1);
+
+  /* --- Transitions (From Original) --- */
+  --transition-fast: 0.14s ease-out;
+  --transition-med: 0.22s ease-out;
+}
+
+/* ==========================
+   Global
+   ========================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text-main);
+  background: radial-gradient(ellipse at 50% 50%, #0f1a0f 0%, #0a0e0a 70%);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Inter", sans-serif;
+}
+
+/* ==========================
+   App Background + Grid
+   ========================== */
+.app-root {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(244, 255, 78, 0.08) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(52, 211, 153, 0.1) 0%,
+      transparent 40%
+    ),
+    var(--bg-main);
+}
+/* ADD THIS TO YOUR STYLES.CSS FILE */
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+/* === ADD THIS NEW CLASS === */
+.btn-back-to-portal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-green),
+    var(--accent-emerald)
+  );
+  color: #0a0e0a;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-neon);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast);
+}
+
+.btn-back-to-portal:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: 0 0 24px rgba(190, 242, 45, 0.7);
+}
+/* ========================== */
+
+.chat-title {
+  font-size: 1.9rem;
+  /* ...rest of styles... */
+}
+.app-root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(10, 14, 10, 0.72), rgba(10, 14, 10, 0.96)),
+    repeating-linear-gradient(
+      to right,
+      var(--grid-line),
+      var(--grid-line) 1px,
+      transparent 1px,
+      transparent 28px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--grid-line),
+      var(--grid-line) 1px,
+      transparent 1px,
+      transparent 28px
+    );
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-root::after {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(244, 255, 78, 0.25),
+    transparent 60%
+  );
+  filter: blur(12px);
+  right: -15%;
+  top: 40%;
+  transform: translateY(-50%);
+  opacity: 0.55;
+  animation: glow-drift 16s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes glow-drift {
+  0% {
+    transform: translateY(-52%) translateX(0);
+  }
+  50% {
+    transform: translateY(-48%) translateX(-40px);
+  }
+  100% {
+    transform: translateY(-50%) translateX(20px);
+  }
+}
+
+/* Keep content above background layers */
+.sidebar,
+.chat-main {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================
+   Sidebar
+   ========================== */
+.sidebar {
+  width: 270px;
+  min-width: 250px;
+  max-width: 320px;
+  padding: 18px 16px 16px;
+  background: linear-gradient(
+    145deg,
+    rgba(10, 14, 10, 0.96),
+    rgba(20, 26, 20, 0.98)
+  );
+  border-right: 1px solid var(--border-strong);
+  box-shadow: 14px 0 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  backdrop-filter: blur(18px);
+}
+
+.sidebar-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: radial-gradient(circle at 0% 0%, #1f2a1f, #0a0e0a);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 0 18px rgba(190, 242, 45, 0.3);
+  color: var(--text-main);
+}
+
+.sidebar-logo::before {
+  content: "⚡";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--accent-gradient);
+  color: #0a0e0a;
+  font-size: 0.85rem;
+}
+
+.sidebar-logo::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    var(--accent-green),
+    var(--accent-emerald)
+  );
+  box-shadow: 0 0 14px rgba(190, 242, 45, 0.9);
+}
+
+/* new chat button */
+.sidebar-newchat {
+  margin-top: 8px;
+  padding: 11px 14px;
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: radial-gradient(
+    circle at 0% 0%,
+    rgba(244, 255, 78, 0.2),
+    rgba(190, 242, 45, 0.1)
+  );
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.85);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.sidebar-newchat:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent-yellow);
+  box-shadow: var(--shadow-neon);
+  background: radial-gradient(
+    circle at 10% 0%,
+    rgba(244, 255, 78, 0.3),
+    rgba(190, 242, 45, 0.2)
+  );
+}
+
+.sidebar-section-title {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+/* chat list */
+.chat-list {
+  margin-top: 4px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.chat-list::-webkit-scrollbar {
+  width: 4px;
+}
+.chat-list::-webkit-scrollbar-thumb {
+  background: var(--text-dim);
+  border-radius: 999px;
+}
+
+/* chat item card */
+.chat-item {
+  width: 100%;
+  border-radius: 16px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-subtle);
+  background: radial-gradient(circle at 0 0, #1f2a1f, #0a0e0a);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color var(--transition-fast),
+    box-shadow var(--transition-fast), background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.chat-item-title {
+  font-size: 0.86rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat-item-sub {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.chat-item::before {
+  content: "";
+  position: relative;
+  display: block;
+  width: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--accent-gradient);
+  margin-bottom: 4px;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: transform var(--transition-med), opacity var(--transition-med),
+    width var(--transition-med);
+}
+
+.chat-item:hover {
+  border-color: var(--accent-green);
+  box-shadow: var(--shadow-green);
+  transform: translateY(-1px);
+}
+
+.chat-item.active {
+  border-color: var(--accent-yellow);
+  box-shadow: var(--shadow-neon);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(244, 255, 78, 0.15),
+    rgba(20, 26, 20, 0.1)
+  );
+}
+
+.chat-item.active::before {
+  width: 32%;
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* footer chip */
+.sidebar-footer {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-strong);
+}
+
+.assistant-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0a0e0a, #141a14);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.8);
+}
+
+.assistant-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--accent-gradient);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #0a0e0a;
+}
+
+.assistant-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.assistant-sub {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+/* ==========================
+   Chat Main Layout
+   ========================== */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 22px 16px;
+}
+
+/* header */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.chat-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  from {
+    text-shadow: 0 0 10px rgba(244, 255, 78, 0.5),
+      0 0 20px rgba(190, 242, 45, 0.3);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(244, 255, 78, 0.9),
+      0 0 40px rgba(190, 242, 45, 0.6);
+  }
+}
+
+.chat-subtitle {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* content grid: chat + right panel */
+.chat-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 2.6fr) minmax(260px, 1.2fr);
+  gap: 18px;
+  margin-top: 12px;
+  min-height: 0;
+}
+
+/* ==========================
+   Chat Body / Messages
+   ========================== */
+.chat-body {
+  flex: 1;
+  padding: 16px 6px 10px;
+  overflow-y: auto;
+  position: relative;
+  scroll-behavior: smooth;
+}
+
+.chat-body::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-body::-webkit-scrollbar-thumb {
+  background: var(--text-dim);
+  border-radius: 999px;
+}
+
+/* extra glow layer */
+.chat-bg-glow {
+  position: absolute;
+  right: 8%;
+  top: 30%;
+  width: 520px;
+  height: 520px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(190, 242, 45, 0.18),
+    transparent 60%
+  );
+  filter: blur(4px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* message rows */
+.message-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+  align-items: flex-start;
+}
+
+.message-user {
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a0e0a;
+}
+
+.message-user .message-avatar {
+  background: radial-gradient(
+    circle at 0 0,
+    var(--accent-yellow),
+    var(--accent-green)
+  );
+  box-shadow: 0 0 18px rgba(244, 255, 78, 0.56);
+}
+
+.message-assistant .message-avatar {
+  background: radial-gradient(
+    circle at 0 0,
+    var(--accent-green),
+    var(--accent-emerald)
+  );
+  box-shadow: 0 0 18px rgba(190, 242, 45, 0.55);
+}
+
+/* bubbles */
+.message-bubble {
+  max-width: 840px;
+  padding: 10px 13px;
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  background: radial-gradient(circle at 0 0, #141a14, #0a0e0a);
+  box-shadow: var(--shadow-soft);
+  font-size: 0.93rem;
+  line-height: 1.6;
+  transform-origin: top left;
+  animation: bubble-in 0.22s ease-out;
+  color: var(--text-main);
+}
+
+@keyframes bubble-in {
+  from {
+    transform: translateY(4px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.message-bubble p {
+  margin: 0 0 4px;
+}
+.message-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.message-user .message-bubble {
+  border-color: rgba(244, 255, 78, 0.85);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(244, 255, 78, 0.1),
+    rgba(10, 14, 10, 0.95)
+  );
+}
+
+.message-assistant .message-bubble strong {
+  color: var(--accent-yellow);
+}
+
+/* typing dots */
+.message-bubble.thinking {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent-yellow);
+  animation: dot-bounce 1s infinite;
+}
+
+.dot2 {
+  animation-delay: 0.16s;
+}
+.dot3 {
+  animation-delay: 0.32s;
+}
+
+@keyframes dot-bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.65;
+  }
+  40% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* ==========================
+   Scenario Panel (right)
+   ========================== */
+.scenario-panel {
+  border-radius: var(--radius-xl);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(190, 242, 45, 0.1),
+    rgba(10, 14, 10, 0.95)
+  );
+  border: 1px solid rgba(190, 242, 45, 0.45);
+  box-shadow: var(--shadow-soft);
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scenario-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.scenario-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.scenario-sub {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.scenario-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.scenario-field label {
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+.scenario-input {
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: rgba(20, 26, 20, 0.98);
+  color: var(--text-main);
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  outline: none;
+  box-shadow: 0 0 0 rgba(190, 242, 45, 0);
+  transition: border-color var(--transition-fast),
+    box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.scenario-input:focus {
+  border-color: var(--accent-yellow);
+  background: #0a0e0a;
+  box-shadow: 0 0 14px rgba(244, 255, 78, 0.4);
+}
+
+.scenario-button {
+  margin-top: 4px;
+  align-self: flex-start;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0a0e0a;
+  background: var(--accent-gradient);
+  box-shadow: var(--shadow-neon);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    filter var(--transition-fast), opacity var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.scenario-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  opacity: 0;
+  transform: translateX(-120%);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+.scenario-button:hover:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+  filter: brightness(1.05);
+  box-shadow: var(--shadow-green);
+}
+
+.scenario-button:not(:disabled):hover::after {
+  opacity: 0.22;
+  transform: translateX(120%);
+}
+
+.scenario-button:disabled {
+  opacity: 0.7;
+  cursor: default;
+  box-shadow: none;
+}
+
+.scenario-note {
+  margin-top: 4px;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+}
+
+/* ==========================
+   Attachments
+   ========================== */
+.attachment-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.attachment-list.in-message {
+  margin-top: 6px;
+}
+
+.attachment-pill {
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  border: 1px solid var(--border-subtle);
+  background: rgba(20, 26, 20, 0.96);
+  color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: border-color var(--transition-fast),
+    background var(--transition-fast), transform var(--transition-fast);
+}
+
+.attachment-pill.small {
+  cursor: default;
+}
+
+.attachment-pill:hover:not(.small) {
+  border-color: var(--accent-yellow);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(244, 255, 78, 0.1),
+    #0a0e0a
+  );
+  transform: translateY(-1px);
+}
+
+.attachment-x {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+/* ==========================
+   Footer / Input
+   ========================== */
+.chat-footer {
+  padding-top: 10px;
+  border-top: 1px solid var(--border-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: var(--radius-xl);
+  background: var(--bg-panel-soft);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.95);
+}
+
+.input-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 6px;
+}
+
+.icon-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(244, 255, 78, 0.1),
+    rgba(190, 242, 45, 0.15)
+  );
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--text-main);
+  transition: transform var(--transition-fast),
+    box-shadow var(--transition-fast), border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.icon-btn:hover {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 16px rgba(190, 242, 45, 0.6);
+  transform: translateY(-1px);
+}
+
+.icon-btn.active {
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 18px rgba(244, 255, 78, 0.8);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(244, 255, 78, 0.3),
+    rgba(190, 242, 45, 0.4)
+  );
+}
+
+.chat-input {
+  flex: 1;
+  min-height: 40px;
+  max-height: 160px;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-main);
+  font: inherit;
+  padding: 6px 0;
+}
+
+.chat-input::placeholder {
+  color: var(--text-dim);
+}
+
+/* send */
+.send-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent-gradient);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a0e0a;
+  font-size: 1rem;
+  box-shadow: var(--shadow-neon);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    filter var(--transition-fast), opacity var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.send-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  opacity: 0;
+  transform: translateX(-120%);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+.send-btn:not(:disabled):hover {
+  transform: translateY(-1px) scale(1.03);
+  filter: brightness(1.05);
+  box-shadow: var(--shadow-green);
+}
+
+.send-btn:not(:disabled):hover::after {
+  opacity: 0.22;
+  transform: translateX(120%);
+}
+
+.send-btn:disabled {
+  opacity: 0.65;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid #0a0e0a;
+  border-top-color: var(--accent-emerald);
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* footer note */
+.footer-note {
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  padding-left: 4px;
+}
+/* ==========================
+   Advanced Assistant Response Styling
+   (To work with ReactMarkdown)
+   ========================== */
+
+/* Make assistant bubbles look more "AI special" */
+.message-assistant .message-bubble {
+  position: relative;
+  border-color: rgba(190, 242, 45, 0.85);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(190, 242, 45, 0.16),
+    #0a0e0a
+  );
+  box-shadow:
+    0 0 26px rgba(190, 242, 45, 0.4),
+    0 18px 45px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+/* Animated glow strip at the top of assistant replies */
+.message-assistant .message-bubble::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--accent-gradient);
+  opacity: 0.75;
+  filter: blur(0.4px);
+  animation: pulse-strip 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse-strip {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+}
+
+/* Soft inner glow for assistant messages */
+.message-assistant .message-bubble::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 5% 0%,
+    rgba(244, 255, 78, 0.08),
+    transparent 55%
+  );
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Style for <h2> (Main Title) from ReactMarkdown */
+.message-assistant .message-bubble h2 {
+  margin-bottom: 6px;
+  font-size: 1.02rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 12px rgba(10, 14, 10, 0.9);
+  padding-top: 4px; /* Give space for the glow strip */
+  margin-top: 0;
+}
+
+/* Style for <h3> (Section Title) from ReactMarkdown */
+.message-assistant .message-bubble h3 {
+  color: var(--text-soft);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: 8px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 2px;
+}
+
+/* Lists inside responses – nicer spacing + neon bullets */
+.message-bubble ul,
+.message-bubble ol {
+  margin: 6px 0 8px 1.1rem;
+  padding-left: 0.6rem;
+}
+
+.message-bubble li {
+  margin-bottom: 3px;
+  color: var(--text-soft);
+}
+
+.message-bubble ul li::marker {
+  color: var(--accent-green);
+}
+
+.message-bubble ol li::marker {
+  color: var(--accent-yellow);
+}
+
+/* Blockquote-style callouts */
+.message-bubble blockquote {
+  margin: 8px 0;
+  padding: 8px 10px;
+  border-left: 2px solid var(--accent-emerald);
+  background: rgba(20, 26, 20, 0.85);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* Inline code / math markers */
+.message-bubble code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.83rem;
+  padding: 1px 5px;
+  border-radius: 6px;
+  background: rgba(20, 26, 20, 0.95);
+  border: 1px solid var(--border-subtle);
+  color: var(--accent-green);
+}
+
+/* Preformatted blocks (for Markdown) */
+.message-bubble pre {
+  margin: 8px 0;
+  padding: 8px 10px;
+  background: #0a0e0a;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 16px 30px rgba(10, 14, 10, 0.9);
+  overflow-x: auto;
+  font-size: 0.82rem;
+}
+
+/* Slight glow when a new assistant message appears */
+.message-assistant .message-bubble {
+  animation:
+    bubble-in 0.22s ease-out,
+    bubble-glow 1.6s ease-out 0.05s;
+}
+
+@keyframes bubble-glow {
+  0% {
+    box-shadow:
+      0 0 0 rgba(190, 242, 45, 0),
+      0 0 0 rgba(244, 255, 78, 0);
+  }
+  40% {
+    box-shadow:
+      0 0 26px rgba(190, 242, 45, 0.65),
+      0 0 32px rgba(244, 255, 78, 0.7);
+  }
+  100% {
+    box-shadow:
+      0 0 26px rgba(190, 242, 45, 0.4),
+      0 18px 45px rgba(0, 0, 0, 0.9);
+  }
+}
+
+.footer-note .accent {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ==========================
+   Responsive
+   ========================== */
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  .chat-main {
+    padding: 14px 10px;
+  }
+
+  .chat-content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scenario-panel {
+    order: -1;
+  }
+/* Title line inside assistant message (first line) */
+.assistant-title-line {
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin: 0 0 6px 0;
+  text-shadow: 0 0 12px rgba(10, 14, 10, 0.9);
+}
+
+/* Wrapper for markdown body inside assistant bubble */
+.assistant-markdown {
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+/* Ensure paragraphs inside markdown have nice spacing */
+.assistant-markdown p {
+  margin: 3px 0 6px;
+}
+
+/* Lists: clearer spacing + align with your neon markers */
+.assistant-markdown ul,
+.assistant-markdown ol {
+  margin: 6px 0 8px 1.1rem;
+  padding-left: 0.4rem;
+}
+
+.assistant-markdown li {
+  margin-bottom: 3px;
+}
+
+/* Make numbered lists stand out (for your 1), 2) sections) */
+.assistant-markdown ol {
+  counter-reset: section-counter;
+}
+
+.assistant-markdown ol > li {
+  position: relative;
+  padding-left: 0.2rem;
+}
+
+/* Optional: style strong labels (like **Scenario**) a bit more */
+.assistant-markdown strong {
+  color: var(--accent-yellow);
+  font-weight: 650;
+}
+
+  .message-bubble {
+    max-width: 100%;
+  }
+}
