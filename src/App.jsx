@@ -465,13 +465,13 @@ const App = () => {
           </div>
 
           <a
-            href="https://energy-verse-portal.netlify.app/?feature=8"
-            className="btn-back-to-portal"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ← Back to Portal
-          </a>
+  href="https://energy-verse-portal.netlify.app/?feature=8"
+  className="btn-back-to-portal"
+  target="_self"
+>
+  ← Back to Portal
+</a>
+
         </header>
 
         <div className="chat-content">
