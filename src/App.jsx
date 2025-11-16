@@ -665,7 +665,7 @@ const App = () => {
           </div>
 
           <div className="footer-note">
-            Multilingual Energy Assistant · gpt-4o-mini via OpenAI API
+            Multilingual Energy Assistant
           </div>
         </footer>
       </main>
